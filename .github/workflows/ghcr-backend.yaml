@@ -3,15 +3,14 @@ name: Build & Publish Backend Image (Tag Push)
 on:
   push:
     tags:
-      - 'v*'       # trigger only on tag push
+      - "v*"     # only run when pushing a version tag
 
 jobs:
   build-and-push:
-    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Log in to GHCR
@@ -21,6 +20,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Prepare lowercase image names
+        id: prep
+        run: |
+          # repo owner & name must be lowercase
+          echo "owner_lc=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
+
+          # convert tag v1.0.1 → v1-0-1
+          SANITIZED_TAG="${GITHUB_REF_NAME//./-}"
+          echo "tag_sanitized=$SANITIZED_TAG" >> $GITHUB_OUTPUT
+
       - name: Build and Push Backend Image
         uses: docker/build-push-action@v5
         with:
@@ -28,5 +37,5 @@ jobs:
           file: ./ctf-backend/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/ctf-backend:${{ github.ref_name }}
-            ghcr.io/${{ github.repository_owner }}/ctf-backend:latest
+            ghcr.io/${{ steps.prep.outputs.owner_lc }}/ctf-backend:${{ steps.prep.outputs.tag_sanitized }}
+            ghcr.io/${{ steps.prep.outputs.owner_lc }}/ctf-backend:latest
