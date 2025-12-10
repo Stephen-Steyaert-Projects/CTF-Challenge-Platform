@@ -10,7 +10,6 @@ import challengeRoutes from "./src/routes/challenges.js";
 import submissionRoutes from "./src/routes/submissions.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
@@ -30,6 +29,7 @@ app.use("/api/submissions", submissionRoutes);
 
 const PORT = process.env.PORT || 3000;
 if (process.env.NODE_PORT !== "test")
+  connectDB();
   app.listen(PORT, () => console.log("Server running on port " + PORT));
 
 export default app;
