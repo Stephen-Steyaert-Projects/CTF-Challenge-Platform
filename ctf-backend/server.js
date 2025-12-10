@@ -5,7 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
-import connectDB from "./config/db.js";
+import connectDB from "./src/config/db.js";
 
 dotenv.config(); // load .env
 
@@ -19,10 +19,10 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 // Routes
-import authRoutes from "./routes/auth.js";
-import adminRoutes from "./routes/admin.js";
-import challengeRoutes from "./routes/challenge.js";
-import submissionRoutes from "./routes/submission.js";
+import authRoutes from "./src/routes/auth.js";
+import adminRoutes from "./src/routes/admin.js";
+import challengeRoutes from "./src/routes/challenge.js";
+import submissionRoutes from "./src/routes/submission.js";
 
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
