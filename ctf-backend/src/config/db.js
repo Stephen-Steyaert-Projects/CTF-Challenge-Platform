@@ -6,6 +6,12 @@ export default async function connectDB() {
     console.log("MongoDB connected");
   } catch (err) {
     console.error("MongoDB error:", err);
-    process.exit(1);
+
+    // Don't kill the test runner
+    if (process.env.NODE_ENV !== "test") {
+      process.exit(1);
+    } else {
+      throw err; // Let Jest handle the error if needed
+    }
   }
 }
