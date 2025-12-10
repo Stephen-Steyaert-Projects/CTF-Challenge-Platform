@@ -1,0 +1,39 @@
+name: Run Backend Tests
+
+on:
+  push:
+    paths:
+      - "ctf-backend/**"
+      - ".github/workflows/backend-tests.yml"
+  pull_request:
+    paths:
+      - "ctf-backend/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ctf-backend
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create test environment file
+        run: |
+          echo "NODE_ENV=test" >> .env
+          echo "JWT_SECRET=testsecret" >> .env
+          echo "JWT_EXPIRES_IN=1d" >> .env
+          echo "COOKIE_SECURE=false" >> .env
+
+      - name: Run Tests
+        run: npm test
