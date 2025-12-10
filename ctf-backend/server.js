@@ -1,35 +1,45 @@
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
-import cors from "cors";
 import morgan from "morgan";
-import connectDB from "./src/config/db.js";
+import cookieParser from "cookie-parser";
 
-import authRoutes from "./src/routes/auth.js";
-import challengeRoutes from "./src/routes/challenges.js";
-import submissionRoutes from "./src/routes/submissions.js";
+import connectDB from "./config/db.js";
 
-dotenv.config();
+dotenv.config(); // load .env
 
 const app = express();
 
-app.use(helmet());
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
-}));
+// Middleware
 app.use(express.json());
+app.use(cors({ origin: true, credentials: true }));
+app.use(helmet());
 app.use(morgan("dev"));
+app.use(cookieParser());
 
-app.get("/", (req, res) => res.json({ message: "CTF API Running" }));
+// Routes
+import authRoutes from "./routes/auth.js";
+import adminRoutes from "./routes/admin.js";
+import challengeRoutes from "./routes/challenge.js";
+import submissionRoutes from "./routes/submission.js";
 
-app.use("/api/auth", authRoutes);
-app.use("/api/challenges", challengeRoutes);
-app.use("/api/submissions", submissionRoutes);
+app.use("/auth", authRoutes);
+app.use("/admin", adminRoutes);
+app.use("/challenges", challengeRoutes);
+app.use("/submissions", submissionRoutes);
 
-const PORT = process.env.PORT || 3000;
-if (process.env.NODE_PORT !== "test")
-  connectDB();
-  app.listen(PORT, () => console.log("Server running on port " + PORT));
+// DO NOT connect DB if testing
+if (process.env.NODE_ENV !== "test") {
+  connectDB()
+    .then(() => {
+      const PORT = process.env.PORT || 5000;
+      app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+}
 
-export default app;
+export default app; // supertest needs this
