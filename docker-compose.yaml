@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  backend:
+    image: ghcr.io/stephen-steyaert-projects/ctf-backend:latest
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env.backend
+    restart: unless-stopped
+    networks:
+      - ctf_net
+
+  frontend:
+    image: ghcr.io/stephen-steyaert-projects/ctf-frontend:latest
+    container_name: ctf-frontend
+    ports:
+      - "3000:80"
+    env_file:
+      - .env.frontend
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - ctf_net
+
+  database:
+    image: mongo:7.0
+    container_name: ctf-mongo
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env.beckend
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - ctf_net
+
+volumes:
+  mongo-data:
+
+networks:
+  ctf_net:
+    driver: bridge
