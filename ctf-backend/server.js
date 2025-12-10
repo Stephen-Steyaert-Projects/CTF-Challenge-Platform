@@ -33,7 +33,7 @@ app.use("/submissions", submissionRoutes);
 if (process.env.NODE_ENV !== "test") {
   connectDB()
     .then(() => {
-      const PORT = process.env.PORT || 5000;
+      const PORT = 5000;
       app.listen(PORT, () => console.log(`Server running on ${PORT}`));
     })
     .catch((err) => {
