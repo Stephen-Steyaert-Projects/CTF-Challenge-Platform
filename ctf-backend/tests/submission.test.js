@@ -5,7 +5,7 @@ async function setupChallenge() {
   await request(app).post("/auth/register").send({
     email: "admin@example.com",
     password: "pass123",
-    role: "admin",
+    isAdmin: true,
   });
 
   const login = await request(app).post("/auth/login").send({

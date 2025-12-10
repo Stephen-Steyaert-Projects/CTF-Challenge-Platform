@@ -7,10 +7,15 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.create({ username, password });
-  res.json({
+  res.cookie("token", generateToken(user), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+  });
+  res.status(200).json({
     id: user._id,
     username: user.username,
-    token: generateToken(user)
   });
 });
 
@@ -20,10 +25,15 @@ router.post("/login", async (req, res) => {
   if (!user || !(await user.comparePassword(password)))
     return res.status(400).json({ error: "Invalid credentials" });
 
-  res.json({
+  res.cookie("token", generateToken(user), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+  });
+  res.status(200).json({
     id: user._id,
     username: user.username,
-    token: generateToken(user)
   });
 });
 

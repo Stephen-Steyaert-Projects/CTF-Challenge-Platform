@@ -5,7 +5,7 @@ async function loginAsAdmin() {
   await request(app).post("/auth/register").send({
     email: "admin@example.com",
     password: "password123",
-    role: "admin"
+    isAdmin: true
   });
 
   const res = await request(app).post("/auth/login").send({
