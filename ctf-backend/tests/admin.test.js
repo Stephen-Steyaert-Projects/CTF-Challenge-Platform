@@ -3,13 +3,13 @@ import app from "../server.js";
 
 async function loginAsAdmin() {
   await request(app).post("/auth/register").send({
-    email: "admin@example.com",
+    username: "admin@example.com",
     password: "password123",
-    role: "admin"
+    isAdmin: true
   });
 
   const res = await request(app).post("/auth/login").send({
-    email: "admin@example.com",
+    username: "admin@example.com",
     password: "password123",
   });
 
@@ -36,12 +36,12 @@ describe("Admin Challenge Creation", () => {
 
   it("blocks non-admin", async () => {
     await request(app).post("/auth/register").send({
-      email: "user@example.com",
+      username: "user@example.com",
       password: "password123",
     });
 
     const login = await request(app).post("/auth/login").send({
-      email: "user@example.com",
+      username: "user@example.com",
       password: "password123",
     });
 

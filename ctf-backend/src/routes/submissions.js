@@ -21,10 +21,5 @@ router.post("/:challengeId", auth, async (req, res) => {
   res.json({ correct });
 });
 
-// Admin – view submissions
-router.get("/", auth, async (req, res) => {
-  const submissions = await Submission.find().populate("user").populate("challenge");
-  res.json(submissions);
-});
 
 export default router;
