@@ -1,0 +1,32 @@
+name: Build & Publish Backend Image (Tag Push)
+
+on:
+  push:
+    tags:
+      - 'v*'       # trigger only on tag push
+
+jobs:
+  build-and-push:
+    if: github.ref_type == 'tag' && github.event.base_ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Backend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./ctf-backend
+          file: ./ctf-backend/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/ctf-backend:${{ github.ref_name }}
+            ghcr.io/${{ github.repository_owner }}/ctf-backend:latest
