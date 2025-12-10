@@ -12,7 +12,7 @@ import submissionRoutes from "./src/routes/submissions.js";
 dotenv.config();
 connectDB();
 
-export const app = express();
+const app = express();
 
 app.use(helmet());
 app.use(cors({
@@ -31,3 +31,5 @@ app.use("/api/submissions", submissionRoutes);
 const PORT = process.env.PORT || 3000;
 if (process.env.NODE_PORT !== "test")
   app.listen(PORT, () => console.log("Server running on port " + PORT));
+
+export default app;
