@@ -6,7 +6,7 @@ describe("Auth Tests", () => {
     const res = await request(app)
       .post("/auth/register")
       .send({
-        email: "test@example.com",
+        username: "test@example.com",
         password: "password123",
       });
 
@@ -16,14 +16,14 @@ describe("Auth Tests", () => {
 
   it("logs in a user", async () => {
     await request(app).post("/auth/register").send({
-      email: "test@example.com",
+      username: "test@example.com",
       password: "password123",
     });
 
     const res = await request(app)
       .post("/auth/login")
       .send({
-        email: "test@example.com",
+        username: "test@example.com",
         password: "password123",
       });
 

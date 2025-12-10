@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/challenges", auth, admin, async (req, res) => {
   const challenge = await Challenge.create(req.body);
-  res.json(challenge);
+  res.status(201).json(challenge);
 });
 
 router.put("/challenges/:challengeId", auth, admin, async (req, res) => {
@@ -18,7 +18,7 @@ router.put("/challenges/:challengeId", auth, admin, async (req, res) => {
 
 router.delete("/challenges/:challengeId", auth, admin, async (req, res) => {
   await Challenge.findByIdAndDelete(req.params.challengeId);
-  res.json({ message: "Deleted" });
+  res.status(204).json({ message: "Deleted" });
 });
 
 router.get("/submissions", auth, admin, async (req, res) => {

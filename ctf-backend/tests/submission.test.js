@@ -3,13 +3,13 @@ import app from "../server.js";
 
 async function setupChallenge() {
   await request(app).post("/auth/register").send({
-    email: "admin@example.com",
+    username: "admin@example.com",
     password: "pass123",
     isAdmin: true,
   });
 
   const login = await request(app).post("/auth/login").send({
-    email: "admin@example.com",
+    username: "admin@example.com",
     password: "pass123",
   });
 
@@ -30,12 +30,12 @@ async function setupChallenge() {
 
 async function loginUser() {
   await request(app).post("/auth/register").send({
-    email: "user@example.com",
+    username: "user@example.com",
     password: "pass123",
   });
 
   const res = await request(app).post("/auth/login").send({
-    email: "user@example.com",
+    username: "user@example.com",
     password: "pass123",
   });
 
