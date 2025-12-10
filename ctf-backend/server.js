@@ -21,8 +21,8 @@ app.use(cookieParser());
 // Routes
 import authRoutes from "./src/routes/auth.js";
 import adminRoutes from "./src/routes/admin.js";
-import challengeRoutes from "./src/routes/challenge.js";
-import submissionRoutes from "./src/routes/submission.js";
+import challengeRoutes from "./src/routes/challenges.js";
+import submissionRoutes from "./src/routes/submissions.js";
 
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
