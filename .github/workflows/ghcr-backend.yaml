@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    if: github.ref_type == 'tag' && github.event.base_ref == 'refs/heads/main'
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
 
     steps:
