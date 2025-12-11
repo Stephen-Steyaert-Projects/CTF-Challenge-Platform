@@ -13,7 +13,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(cookieParser());
