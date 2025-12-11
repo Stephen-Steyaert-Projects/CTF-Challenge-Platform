@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.VITE_PUBLIC_API_URL,
+  baseURL: "http://backend:5000",
   withCredentials: true, // important for JWT HttpOnly cookies
 });
 
