@@ -12,13 +12,11 @@ dotenv.config(); // load .env
 const app = express();
 
 // Middleware
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors({
+  origin: true,          // allow all origins
+  credentials: true,     // allow cookies
+}));
+
 
 
 app.use(express.json());
