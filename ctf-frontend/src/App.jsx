@@ -3,7 +3,7 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Admin from "./pages/Admin.jsx";
-import Logout from "./pages/Logout.jsx";
+import LogoutPage from "./pages/Logout.jsx";
 import Navbar from "./components/Navbar.jsx";
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/logout" element={<Logout />} />
+        <Route path="/logout" element={<LogoutPage />} />
       </Routes>
     </>
   );
