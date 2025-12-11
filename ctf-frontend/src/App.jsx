@@ -5,6 +5,7 @@ import Register from "./pages/Register.jsx";
 import Admin from "./pages/Admin.jsx";
 import LogoutPage from "./pages/Logout.jsx";
 import Navbar from "./components/Navbar.jsx";
+import AdminRoute from "./components/AdminRoute";
 
 export default function App() {
   return (
@@ -14,9 +15,17 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/admin" element={<Admin />} />
+
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          }
+        />
         <Route path="/logout" element={<LogoutPage />} />
-      </Routes>
+    </Routes>
     </>
   );
 }

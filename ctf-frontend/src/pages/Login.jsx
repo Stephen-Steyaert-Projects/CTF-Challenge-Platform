@@ -5,16 +5,17 @@ import api from "../api/api.js";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
-  const handleLogin = async ({ username, password }) => {
-    try {
-      await api.post("/auth/login", { username, password });
-      navigate("/"); // redirect to home
-    } catch (err) {
-      setError(err.response?.data?.error || "Login failed");
-    }
+  const { setUser } = useContext(AuthContext);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const res = await api.post("/auth/login", { username, password });
+    setUser(res.data);
+    navigate("/");
   };
+
 
   return (
     <div>
