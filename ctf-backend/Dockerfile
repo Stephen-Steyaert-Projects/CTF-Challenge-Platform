@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 3000
 
 # start the project
-CMD ["node", "start"]
+CMD ["npm", "run", "start"]
