@@ -11,7 +11,6 @@ export default function Login() {
   const { setUser } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
-    e.preventDefault();
     const res = await api.post("/auth/login", { username, password });
     setUser(res.data);
     navigate("/");
