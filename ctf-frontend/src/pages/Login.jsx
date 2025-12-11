@@ -10,12 +10,15 @@ export default function Login() {
 
   const { setUser } = useContext(AuthContext);
 
-  const handleLogin = async (e) => {
-    const res = await api.post("/auth/login", { username, password });
-    setUser(res.data);
-    navigate("/");
+  const handleLogin = async ({ username, password }) => {
+    try {
+      const res = await api.post("/auth/login", { username, password });
+      setUser(res.data);
+      navigate("/");
+    } catch (err) {
+      setError("Invalid username or password");
+    }
   };
-
 
   return (
     <div>
