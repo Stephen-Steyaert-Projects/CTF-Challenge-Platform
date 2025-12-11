@@ -22,7 +22,11 @@ router.post("/register", async (req, res) => {
       maxAge: 86400000,
     });
 
-    res.status(201).json({ username: user.username, isAdmin: user.isAdmin });
+    res.status(201).json({
+      message: "User registered",
+      id: user._id,
+      username: user.username,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Registration failed" });
