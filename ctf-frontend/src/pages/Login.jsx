@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm.jsx";
 import api from "../api/api.js";
+import AuthForm from "../components/AuthForm.jsx";
 
 export default function Login() {
   const navigate = useNavigate();
