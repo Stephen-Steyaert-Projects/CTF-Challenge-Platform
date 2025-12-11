@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm.jsx";
 import api from "../api/api.js";
@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext.jsx";
 
 export default function Login() {
   const navigate = useNavigate();
-  // const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
   const { setUser } = useContext(AuthContext);
 
